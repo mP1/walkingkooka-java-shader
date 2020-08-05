@@ -103,6 +103,9 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
             try {
                 targetConstructor = target.getDeclaredConstructor(parameters);
             } catch (final NoSuchMethodException cause) {
+                if(JavaVisibility.of(constructor).isOrLess(JavaVisibility.PACKAGE_PRIVATE)) {
+                    continue; // private/package private ctor doesnt exist on target ignore.
+                }
                 messages.add("Constructor missing from target: " + constructor.toGenericString());
                 continue;
             }
@@ -155,6 +158,9 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
             try {
                 targetMethod = target.getDeclaredMethod(method.getName(), parameters);
             } catch (final NoSuchMethodException cause) {
+                if(JavaVisibility.of(method).isOrLess(JavaVisibility.PACKAGE_PRIVATE)) {
+                    continue; // private/package private method doesnt exist on target ignore.
+                }
                 messages.add("Method missing from target: " + method.toGenericString());
                 continue;
             }
@@ -236,6 +242,10 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
             try {
                 targetField = target.getDeclaredField(field.getName());
             } catch (final NoSuchFieldException cause) {
+                if(JavaVisibility.of(field).isOrLess(JavaVisibility.PACKAGE_PRIVATE)) {
+                    continue; // private/package private field doesnt exist on target ignore.
+                }
+
                 messages.add("Field missing from target: " + field.toGenericString());
                 continue;
             }
