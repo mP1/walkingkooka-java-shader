@@ -22,8 +22,10 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackageName;
 import walkingkooka.text.CharSequences;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -35,6 +37,41 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTesting> {
+
+    // typeMapper......................................................................................................
+
+    @Test
+    public void testTypeMapperWrongPackage() {
+        this.typeMapperAndCheck(PackageName.from(Map.class.getPackage()),
+                PackageName.from(java.io.File.class.getPackage()),
+                String.class,
+                String.class);
+    }
+
+    @Test
+    public void testTypeMapperPackage() {
+        this.typeMapperAndCheck(PackageName.from(File.class.getPackage()),
+                PackageName.from(java.io.File.class.getPackage()),
+                File.class,
+                java.io.File.class);
+    }
+
+    @Test
+    public void testTypeMapperSubPackage() {
+        this.typeMapperAndCheck(PackageName.with("walkingkooka.javashader.java"),
+                PackageName.with("java"),
+                walkingkooka.javashader.java.io.File.class,
+                java.io.File.class);
+    }
+
+    private void typeMapperAndCheck(final PackageName fromPackage,
+                                    final PackageName toPackage,
+                                    final Class<?> c,
+                                    final Class<?> target) {
+        assertEquals(target,
+                ShadedClassTesting.typeMapper(fromPackage, toPackage).apply(c),
+                () -> "map " + c.getName() + " from " + fromPackage.value() + " to " + toPackage.value());
+    }
 
     // Class......................................................................................................
 

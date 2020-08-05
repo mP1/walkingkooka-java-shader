@@ -24,6 +24,7 @@ import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.FieldAttributes;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.MethodAttributes;
+import walkingkooka.reflect.PackageName;
 import walkingkooka.text.CharSequences;
 
 import java.lang.reflect.Constructor;
@@ -291,6 +292,34 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
      * This should map {@link #type()} to another {@link Class}.
      */
     UnaryOperator<Class<?>> typeMapper();
+
+    /**
+     * A basic {@link UnaryOperator} that maps a class from one {@link Package} to another.
+     */
+    static UnaryOperator<Class<?>> typeMapper(final PackageName from,
+                                              final PackageName to) {
+        Objects.requireNonNull(from, "from package");
+        Objects.requireNonNull(to, "to package");
+
+        return (c) -> {
+            final String className = c.getName();
+            final String packageName = from.value();
+
+            final Class<?> mapped;
+            if (className.startsWith(packageName + ".")) {
+                try {
+                    mapped = Class.forName(to.value() + "." + className.substring(packageName.length() + 1));
+                } catch (final ClassNotFoundException cause) {
+                    throw new IllegalArgumentException("Unable to map " + className + " from " + packageName + " to " + to.value(), cause);
+                }
+            } else {
+                mapped = c;
+            }
+
+
+            return mapped;
+        };
+    }
 
     /**
      * Copy the visibility of the shade target class
