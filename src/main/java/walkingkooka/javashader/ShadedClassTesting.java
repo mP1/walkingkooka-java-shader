@@ -17,7 +17,7 @@
 
 package walkingkooka.javashader;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassAttributes;
 import walkingkooka.reflect.ClassTesting;
@@ -35,7 +35,7 @@ import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Useful to test that a shaded class only has ctors, methods and fields that also appear in the emulated {@link Class}.
@@ -51,9 +51,9 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
 
         final boolean targetTypeStatic = ClassAttributes.STATIC.is(targetType);
         final boolean typeStatic = ClassAttributes.STATIC.is(type);
-        assertEquals((targetTypeStatic ? "Static" : "Instance") + " expected " + (typeStatic ? "static" : "instance") + ": " + type.toGenericString(),
-                targetTypeStatic,
-                typeStatic);
+        assertEquals(targetTypeStatic,
+                typeStatic,
+                () -> (targetTypeStatic ? "Static" : "Instance") + " expected " + (typeStatic ? "static" : "instance") + ": " + type.toGenericString());
     }
 
     @Test
@@ -63,9 +63,9 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
 
         final boolean targetTypeFinal = ClassAttributes.FINAL.is(targetType);
         final boolean typeFinal = ClassAttributes.FINAL.is(type);
-        assertEquals((targetTypeFinal ? "Final" : "Not final") + " expected " + (typeFinal ? "final" : "not final") + ": " + type.toGenericString(),
-                targetTypeFinal,
-                typeFinal);
+        assertEquals(targetTypeFinal,
+                typeFinal,
+                () -> (targetTypeFinal ? "Final" : "Not final") + " expected " + (typeFinal ? "final" : "not final") + ": " + type.toGenericString());
     }
 
     @Test
@@ -75,9 +75,9 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
 
         final boolean targetTypeAbstract = ClassAttributes.ABSTRACT.is(targetType);
         final boolean typeAbstract = ClassAttributes.ABSTRACT.is(type);
-        assertEquals((targetTypeAbstract ? "Abstract" : "Not abstract") + " expected " + (typeAbstract ? "abstract" : "not abstract") + ": " + type.toGenericString(),
-                targetTypeAbstract,
-                typeAbstract);
+        assertEquals(targetTypeAbstract,
+                typeAbstract,
+                () -> (targetTypeAbstract ? "Abstract" : "Not abstract") + " expected " + (typeAbstract ? "abstract" : "not abstract") + ": " + type.toGenericString());
     }
 
     // constructors......................................................................................................

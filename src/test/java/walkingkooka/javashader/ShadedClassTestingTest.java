@@ -226,7 +226,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
         final Constructor expected = to.getDeclaredConstructor();
         constructorTestingFails(from,
                 to,
-                "expected:<[]> but was:<[Constructor visibility " + JavaVisibility.of(expected) + " different: " + expected.toGenericString() + "]>");
+                "expected: <[]> but was: <[Constructor visibility " + JavaVisibility.of(expected) + " different: " + expected.toGenericString() + "]>");
     }
 
     static class TestPublicConstructor {
@@ -251,7 +251,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     public void testConstructorMissingFails() {
         constructorTestingFails(TestConstructorString.class,
                 TestConstructorInt.class,
-                "expected:<[]> but was:<[Constructor missing from target: walkingkooka.javashader.ShadedClassTestingTest$TestConstructorString(java.lang.String)]>");
+                "expected: <[]> but was: <[Constructor missing from target: walkingkooka.javashader.ShadedClassTestingTest$TestConstructorString(java.lang.String)]>");
     }
 
     @Test
@@ -326,14 +326,14 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     public void testConstructorDifferentThrowsFails() {
         constructorTestingFails(TestConstructorThrowsIllegalArgumentException.class,
                 TestConstructorThrowsIllegalStateException.class,
-                "expected:<[]> but was:<[Constructor includes unexpected throws: walkingkooka.javashader.ShadedClassTestingTest$TestConstructorThrowsIllegalStateException() throws java.lang.IllegalStateException]>");
+                "expected: <[]> but was: <[Constructor includes unexpected throws: walkingkooka.javashader.ShadedClassTestingTest$TestConstructorThrowsIllegalStateException() throws java.lang.IllegalStateException]>");
     }
 
     @Test
     public void testConstructorDifferentThrowsFails2() {
         constructorTestingFails(TestConstructorThrowsIllegalArgumentExceptionIllegalStateException.class,
                 TestConstructorThrowsIllegalArgumentException.class,
-                "expected:<[]> but was:<[Constructor includes unexpected throws: walkingkooka.javashader.ShadedClassTestingTest$TestConstructorThrowsIllegalArgumentException() throws java.lang.IllegalArgumentException]>");
+                "expected: <[]> but was: <[Constructor includes unexpected throws: walkingkooka.javashader.ShadedClassTestingTest$TestConstructorThrowsIllegalArgumentException() throws java.lang.IllegalArgumentException]>");
     }
 
     static class TestConstructorThrowsIllegalArgumentException {
@@ -468,7 +468,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
         methodTestingFails(from,
                 to,
-                "expected:<[]> but was:<[Method visibility " + JavaVisibility.of(expected) + " different: " + expected.toGenericString() + "]>");
+                "expected: <[]> but was: <[Method visibility " + JavaVisibility.of(expected) + " different: " + expected.toGenericString() + "]>");
     }
 
     static class TestPublicMethod {
@@ -490,7 +490,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     public void testMethodMissingFails() {
         methodTestingFails(TestMethodParameterString.class,
                 TestMethodParameterInt.class,
-                "expected:<[]> but was:<[Method missing from target: void walkingkooka.javashader.ShadedClassTestingTest$TestMethodParameterString.method123(java.lang.String)]>");
+                "expected: <[]> but was: <[Method missing from target: void walkingkooka.javashader.ShadedClassTestingTest$TestMethodParameterString.method123(java.lang.String)]>");
     }
 
     @Test
@@ -560,14 +560,14 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     public void testMethodDifferentThrowsFails() {
         methodTestingFails(TestMethodThrowsIllegalArgumentException.class,
                 TestMethodThrowsIllegalStateException.class,
-                "expected:<[]> but was:<[Method includes unexpected throws(java.lang.IllegalArgumentException): void walkingkooka.javashader.ShadedClassTestingTest$TestMethodThrowsIllegalArgumentException.method123() throws java.lang.IllegalArgumentException]>");
+                "expected: <[]> but was: <[Method includes unexpected throws(java.lang.IllegalArgumentException): void walkingkooka.javashader.ShadedClassTestingTest$TestMethodThrowsIllegalArgumentException.method123() throws java.lang.IllegalArgumentException]>");
     }
 
     @Test
     public void testMethodDifferentThrowsFails2() {
         methodTestingFails(TestMethodThrowsIllegalArgumentExceptionIllegalStateException.class,
                 TestMethodThrowsIllegalArgumentException.class,
-                "expected:<[]> but was:<[Method includes unexpected throws(java.lang.IllegalStateException): void walkingkooka.javashader.ShadedClassTestingTest$TestMethodThrowsIllegalArgumentExceptionIllegalStateException.method123() throws java.lang.IllegalArgumentException,java.lang.IllegalStateException]>");
+                "expected: <[]> but was: <[Method includes unexpected throws(java.lang.IllegalStateException): void walkingkooka.javashader.ShadedClassTestingTest$TestMethodThrowsIllegalArgumentExceptionIllegalStateException.method123() throws java.lang.IllegalArgumentException,java.lang.IllegalStateException]>");
     }
 
     static class TestMethodThrowsIllegalArgumentException {
@@ -589,7 +589,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     public void testMethodDifferentReturnTypeFails() {
         methodTestingFails(TestMethodReturnString.class,
                 TestMethodReturnInt.class,
-                "expected:<[]> but was:<[Method return type java.lang.String different: java.lang.String walkingkooka.javashader.ShadedClassTestingTest$TestMethodReturnString.method123()]>");
+                "expected: <[]> but was: <[Method return type java.lang.String different: java.lang.String walkingkooka.javashader.ShadedClassTestingTest$TestMethodReturnString.method123()]>");
     }
 
     static class TestMethodReturnString {
@@ -608,14 +608,14 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     public void testMethodNotStaticStaticFails() {
         methodTestingFails(TestMethodNotStatic.class,
                 TestMethodStatic.class,
-                "expected:<[]> but was:<[Static expected instance: void walkingkooka.javashader.ShadedClassTestingTest$TestMethodNotStatic.method123()]>");
+                "expected: <[]> but was: <[Static expected instance: void walkingkooka.javashader.ShadedClassTestingTest$TestMethodNotStatic.method123()]>");
     }
 
     @Test
     public void testMethodStaticNotStaticFails() {
         methodTestingFails(TestMethodStatic.class,
                 TestMethodNotStatic.class,
-                "expected:<[]> but was:<[Instance expected static: static void walkingkooka.javashader.ShadedClassTestingTest$TestMethodStatic.method123()]>");
+                "expected: <[]> but was: <[Instance expected static: static void walkingkooka.javashader.ShadedClassTestingTest$TestMethodStatic.method123()]>");
     }
 
     static class TestMethodStatic {
@@ -632,14 +632,14 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     public void testMethodNotAbstractAbstractFails() {
         methodTestingFails(TestMethodNotAbstract.class,
                 TestMethodAbstract.class,
-                "expected:<[]> but was:<[Abstract expected non abstract: void walkingkooka.javashader.ShadedClassTestingTest$TestMethodNotAbstract.method123()]>");
+                "expected: <[]> but was: <[Abstract expected non abstract: void walkingkooka.javashader.ShadedClassTestingTest$TestMethodNotAbstract.method123()]>");
     }
 
     @Test
     public void testMethodAbstractNotAbstractFails() {
         methodTestingFails(TestMethodAbstract.class,
                 TestMethodNotAbstract.class,
-                "expected:<[]> but was:<[Non abstract expected abstract: abstract void walkingkooka.javashader.ShadedClassTestingTest$TestMethodAbstract.method123()]>");
+                "expected: <[]> but was: <[Non abstract expected abstract: abstract void walkingkooka.javashader.ShadedClassTestingTest$TestMethodAbstract.method123()]>");
     }
 
     static abstract class TestMethodAbstract {
@@ -655,14 +655,14 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     public void testMethodNotFinalFinalFails() {
         methodTestingFails(TestMethodNotFinal.class,
                 TestMethodFinal.class,
-                "expected:<[]> but was:<[Final expected non final: void walkingkooka.javashader.ShadedClassTestingTest$TestMethodNotFinal.method123()]>");
+                "expected: <[]> but was: <[Final expected non final: void walkingkooka.javashader.ShadedClassTestingTest$TestMethodNotFinal.method123()]>");
     }
 
     @Test
     public void testMethodFinalNotFinalFails() {
         methodTestingFails(TestMethodFinal.class,
                 TestMethodNotFinal.class,
-                "expected:<[]> but was:<[Non final expected final: final void walkingkooka.javashader.ShadedClassTestingTest$TestMethodFinal.method123()]>");
+                "expected: <[]> but was: <[Non final expected final: final void walkingkooka.javashader.ShadedClassTestingTest$TestMethodFinal.method123()]>");
     }
 
     static class TestMethodFinal {
@@ -791,7 +791,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
         fieldTestingFails(from,
                 to,
-                "expected:<[]> but was:<[Field visibility " + JavaVisibility.of(expected) + " different: " + expected.toGenericString() + "]>");
+                "expected: <[]> but was: <[Field visibility " + JavaVisibility.of(expected) + " different: " + expected.toGenericString() + "]>");
     }
 
     static class TestPublicField {
@@ -810,7 +810,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     public void testFieldMissingFails() {
         fieldTestingFails(TestFieldString.class,
                 TestFieldMissing.class,
-                "expected:<[]> but was:<[Field missing from target: java.lang.String walkingkooka.javashader.ShadedClassTestingTest$TestFieldString.field123]>");
+                "expected: <[]> but was: <[Field missing from target: java.lang.String walkingkooka.javashader.ShadedClassTestingTest$TestFieldString.field123]>");
     }
 
     static class TestFieldMissing {
@@ -826,7 +826,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     public void testFieldDifferentTypeFails() {
         fieldTestingFails(TestFieldString.class,
                 TestFieldInt.class,
-                "expected:<[]> but was:<[Field type java.lang.String different: java.lang.String walkingkooka.javashader.ShadedClassTestingTest$TestFieldString.field123]>");
+                "expected: <[]> but was: <[Field type java.lang.String different: java.lang.String walkingkooka.javashader.ShadedClassTestingTest$TestFieldString.field123]>");
     }
 
     static class TestFieldString {
@@ -873,14 +873,14 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     public void testFieldNotStaticStaticFails() {
         fieldTestingFails(TestFieldNotStatic.class,
                 TestFieldStatic.class,
-                "expected:<[]> but was:<[Static expected instance: int walkingkooka.javashader.ShadedClassTestingTest$TestFieldNotStatic.field123]>");
+                "expected: <[]> but was: <[Static expected instance: int walkingkooka.javashader.ShadedClassTestingTest$TestFieldNotStatic.field123]>");
     }
 
     @Test
     public void testFieldStaticNotStaticFails() {
         fieldTestingFails(TestFieldStatic.class,
                 TestFieldNotStatic.class,
-                "expected:<[]> but was:<[Instance expected static: static int walkingkooka.javashader.ShadedClassTestingTest$TestFieldStatic.field123]>");
+                "expected: <[]> but was: <[Instance expected static: static int walkingkooka.javashader.ShadedClassTestingTest$TestFieldStatic.field123]>");
     }
 
     static class TestFieldStatic {
@@ -895,14 +895,14 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     public void testFieldNotFinalFinalFails() {
         fieldTestingFails(TestFieldNotFinal.class,
                 TestFieldFinal.class,
-                "expected:<[]> but was:<[Final expected non final: int walkingkooka.javashader.ShadedClassTestingTest$TestFieldNotFinal.field123]>");
+                "expected: <[]> but was: <[Final expected non final: int walkingkooka.javashader.ShadedClassTestingTest$TestFieldNotFinal.field123]>");
     }
 
     @Test
     public void testFieldFinalNotFinalFails() {
         fieldTestingFails(TestFieldFinal.class,
                 TestFieldNotFinal.class,
-                "expected:<[]> but was:<[Non final expected final: final int walkingkooka.javashader.ShadedClassTestingTest$TestFieldFinal.field123]>");
+                "expected: <[]> but was: <[Non final expected final: final int walkingkooka.javashader.ShadedClassTestingTest$TestFieldFinal.field123]>");
     }
 
     static class TestFieldFinal {
@@ -1214,7 +1214,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
         fieldTestingFails(from,
                 to,
-                "expected:<[]> but was:<[Field value " + CharSequences.quoteIfChars(fromValue) + " different " + CharSequences.quoteIfChars(toValue) + ": " + fromField.toGenericString() + "]>");
+                "expected: <[]> but was: <[Field value " + CharSequences.quoteIfChars(fromValue) + " different " + CharSequences.quoteIfChars(toValue) + ": " + fromField.toGenericString() + "]>");
     }
 
     @Test
