@@ -312,20 +312,37 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
         Objects.requireNonNull(to, "to package");
 
         return (c) -> {
+            // primitives are ignored and not shadable
+            if(c.isPrimitive()) {
+                return c;
+            }
+
             final String className = c.getName();
             final String packageName = from.value();
 
+            final StringBuilder prefix = new StringBuilder();
+            Class<?> component = c.getComponentType();
+            while(null != component) {
+                prefix.append('[');
+                if(component.isPrimitive()) {
+                    return c;
+                }
+                component = component.getComponentType();
+            }
+            if(null != c.getComponentType()) {
+                prefix.append("L");
+            }
+
             final Class<?> mapped;
-            if (className.startsWith(packageName + ".")) {
+            if (className.startsWith(prefix + packageName + ".")) {
                 try {
-                    mapped = Class.forName(to.value() + "." + className.substring(packageName.length() + 1));
+                    mapped = Class.forName(prefix + to.value() + "." + className.substring(prefix.length() + packageName.length() + 1));
                 } catch (final ClassNotFoundException cause) {
                     throw new IllegalArgumentException("Unable to map " + className + " from " + packageName + " to " + to.value(), cause);
                 }
             } else {
                 mapped = c;
             }
-
 
             return mapped;
         };
