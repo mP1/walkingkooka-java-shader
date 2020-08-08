@@ -148,6 +148,9 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
         final Class<T> type = this.type();
         final Class<?> target = helper.map(type);
 
+        // if $type is final dont test finalness of methods
+        final boolean typeFinal = JavaVisibility.PUBLIC == JavaVisibility.of(type);
+
         for (final Method method : type.getDeclaredMethods()) {
             if (method.isSynthetic() || method.isBridge() || false == required.test(method)) {
                 continue;
@@ -204,11 +207,13 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
                 }
             }
 
-            {
-                final boolean targetMethodFinal = MethodAttributes.FINAL.is(targetMethod);
-                final boolean methodFinal = MethodAttributes.FINAL.is(method);
-                if (targetMethodFinal != methodFinal) {
-                    messages.add((targetMethodFinal ? "Final" : "Non final") + " expected " + (methodFinal ? "final" : "non final") + ": " + method.toGenericString());
+            if(false == typeFinal) {
+                {
+                    final boolean targetMethodFinal = MethodAttributes.FINAL.is(targetMethod);
+                    final boolean methodFinal = MethodAttributes.FINAL.is(method);
+                    if (targetMethodFinal != methodFinal) {
+                        messages.add((targetMethodFinal ? "Final" : "Non final") + " expected " + (methodFinal ? "final" : "non final") + ": " + method.toGenericString());
+                    }
                 }
             }
         }
