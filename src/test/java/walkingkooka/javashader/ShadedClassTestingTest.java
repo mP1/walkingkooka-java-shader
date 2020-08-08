@@ -752,6 +752,16 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
         }
     }
 
+    @Test
+    public void testMethodFinalNotFinalClassFinalFails() {
+        methodTesting(TestMethodFinalClassFinal.class, TestMethodNotFinal.class);
+    }
+
+    final static class TestMethodFinalClassFinal {
+        public final void method123() {
+        }
+    }
+
     private <T> void methodTestingFails(final Class<T> from,
                                         final Class<?> to,
                                         final String expectedMessage) {
