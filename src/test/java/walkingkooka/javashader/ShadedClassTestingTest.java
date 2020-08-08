@@ -25,7 +25,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PackageName;
 import walkingkooka.text.CharSequences;
 
-import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -39,6 +38,23 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTesting> {
 
     // typeMapper......................................................................................................
+
+    @Test
+    public void testTypeMapperPrimitive() {
+        this.typeMapperAndCheck(PackageName.from(File.class.getPackage()),
+                PackageName.from(java.io.File.class.getPackage()),
+                Integer.TYPE,
+                Integer.TYPE);
+    }
+
+    @Test
+    public void testTypeMapperPrimitiveArray() {
+        final Class<?> intArray = new int[0].getClass();
+        this.typeMapperAndCheck(PackageName.from(File.class.getPackage()),
+                PackageName.from(java.io.File.class.getPackage()),
+                intArray,
+                intArray);
+    }
 
     @Test
     public void testTypeMapperWrongPackage() {
@@ -62,6 +78,30 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
                 PackageName.with("java"),
                 walkingkooka.javashader.java.io.File.class,
                 java.io.File.class);
+    }
+
+    @Test
+    public void testTypeMapperShadedArray() {
+        this.typeMapperAndCheck(PackageName.from(File.class.getPackage()),
+                PackageName.from(java.io.File.class.getPackage()),
+                File[].class,
+                java.io.File[].class);
+    }
+
+    @Test
+    public void testTypeMapperShadedArray2() {
+        this.typeMapperAndCheck(PackageName.from(File.class.getPackage()),
+                PackageName.from(java.io.File.class.getPackage()),
+                File[][].class,
+                java.io.File[][].class);
+    }
+
+    @Test
+    public void testTypeMapperShadedArray3() {
+        this.typeMapperAndCheck(PackageName.from(File.class.getPackage()),
+                PackageName.from(java.io.File.class.getPackage()),
+                File[][][].class,
+                java.io.File[][][].class);
     }
 
     private void typeMapperAndCheck(final PackageName fromPackage,
