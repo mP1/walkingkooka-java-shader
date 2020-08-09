@@ -40,6 +40,27 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     // typeMapper......................................................................................................
 
     @Test
+    public void testTypeMapperFromPackageNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            ShadedClassTesting.typeMapper(null, PackageName.from(this.getClass().getPackage()));
+        });
+    }
+
+    @Test
+    public void testFromToPackageNullFails() {
+        assertThrows(NullPointerException.class, () -> {
+            ShadedClassTesting.typeMapper(PackageName.from(this.getClass().getPackage()), null);
+        });
+    }
+
+    @Test
+    public void testTypeMapperFromPackageTopackageSameFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            ShadedClassTesting.typeMapper(PackageName.from(this.getClass().getPackage()), PackageName.from(this.getClass().getPackage()));
+        });
+    }
+
+    @Test
     public void testTypeMapperPrimitive() {
         this.typeMapperAndCheck(PackageName.from(File.class.getPackage()),
                 PackageName.from(java.io.File.class.getPackage()),

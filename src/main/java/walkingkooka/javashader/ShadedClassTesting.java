@@ -316,6 +316,10 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
         Objects.requireNonNull(from, "from package");
         Objects.requireNonNull(to, "to package");
 
+        if (from.equals(to)) {
+            throw new IllegalArgumentException("From and to packages " + from + " must be different");
+        }
+
         return (c) -> {
             // primitives are ignored and not shadable
             if(c.isPrimitive()) {
