@@ -48,7 +48,8 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
     @Test
     default void testClassStatic() {
         final Class<T> type = this.type();
-        final Class<?> targetType = ShadedClassTestingHelper.with(this.typeMapper()).map(type);
+        final Class<?> targetType = ShadedClassTestingHelper.with(this.typeMapper())
+                .mapDifferentOrFail(type);
 
         final boolean targetTypeStatic = ClassAttributes.STATIC.is(targetType);
         final boolean typeStatic = ClassAttributes.STATIC.is(type);
@@ -60,7 +61,8 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
     @Test
     default void testClassFinal() {
         final Class<T> type = this.type();
-        final Class<?> targetType = ShadedClassTestingHelper.with(this.typeMapper()).map(type);
+        final Class<?> targetType = ShadedClassTestingHelper.with(this.typeMapper())
+                .mapDifferentOrFail(type);
 
         final boolean targetTypeFinal = ClassAttributes.FINAL.is(targetType);
         final boolean typeFinal = ClassAttributes.FINAL.is(type);
@@ -72,7 +74,8 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
     @Test
     default void testClassAbstract() {
         final Class<T> type = this.type();
-        final Class<?> targetType = ShadedClassTestingHelper.with(this.typeMapper()).map(type);
+        final Class<?> targetType = ShadedClassTestingHelper.with(this.typeMapper())
+                .mapDifferentOrFail(type);
 
         final boolean targetTypeAbstract = ClassAttributes.ABSTRACT.is(targetType);
         final boolean typeAbstract = ClassAttributes.ABSTRACT.is(type);
@@ -91,7 +94,7 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
         final Predicate<Constructor> required = this.requiredConstructors();
 
         final Class<T> type = this.type();
-        final Class<?> target = helper.map(type);
+        final Class<?> target = helper.mapDifferentOrFail(type);
 
         for (final Constructor constructor : type.getDeclaredConstructors()) {
             if (false == required.test(constructor)) {
@@ -146,7 +149,7 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
         final Predicate<Method> required = this.requiredMethods();
 
         final Class<T> type = this.type();
-        final Class<?> target = helper.map(type);
+        final Class<?> target = helper.mapDifferentOrFail(type);
 
         // if $type is final dont test finalness of methods
         final boolean typeFinal = JavaVisibility.PUBLIC == JavaVisibility.of(type);
@@ -236,7 +239,7 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
         final Predicate<Field> required = this.requiredFields();
 
         final Class<T> type = this.type();
-        final Class<?> target = helper.map(type);
+        final Class<?> target = helper.mapDifferentOrFail(type);
 
         for (final Field field : type.getDeclaredFields()) {
             if (field.isSynthetic() || false == required.test(field)) {

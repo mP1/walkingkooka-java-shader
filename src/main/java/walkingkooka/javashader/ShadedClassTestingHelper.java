@@ -38,6 +38,14 @@ final class ShadedClassTestingHelper {
         return this.typeMapper.apply(type);
     }
 
+    Class<?> mapDifferentOrFail(final Class<?> type) {
+        final Class<?> different = this.map(type);
+        if(type.equals(different)) {
+            throw new IllegalArgumentException("Type " + type.getName() + " not shaded");
+        }
+        return different;
+    }
+
     /**
      * Reflection APIs use arrays.
      */
@@ -48,7 +56,6 @@ final class ShadedClassTestingHelper {
     }
 
     private final UnaryOperator<Class<?>> typeMapper;
-
 
     List<Class<?>> checkDeclaredThrows(final Class<?>[] throwns,
                                        final Class<?>[] targetThrowns) {
