@@ -268,7 +268,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     @Test
     public void testConstructorPublicPublic() {
-        constructorTesting(TestPublicConstructor.class, TestPublicConstructor.class)
+        constructorTesting(TestPublicConstructor.class, TestPublicConstructor2.class)
                 .testConstructors();
     }
 
@@ -279,13 +279,13 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     @Test
     protected void testConstructorProtectedProtected() {
-        constructorTesting(TestProtectedConstructor.class, TestProtectedConstructor.class)
+        constructorTesting(TestProtectedConstructor.class, TestProtectedConstructor2.class)
                 .testConstructors();
     }
 
     @Test
     protected void testConstructorPackagePrivatePackagePrivate() {
-        constructorTesting(TestPackagePrivateConstructor.class, TestPackagePrivateConstructor.class)
+        constructorTesting(TestPackagePrivateConstructor.class, TestPackagePrivateConstructor2.class)
                 .testConstructors();
     }
 
@@ -333,14 +333,32 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
         }
     }
 
+    static class TestPublicConstructor2 {
+        public TestPublicConstructor2() {
+            super();
+        }
+    }
+
     static class TestProtectedConstructor {
         protected TestProtectedConstructor() {
             super();
         }
     }
 
+    static class TestProtectedConstructor2 {
+        protected TestProtectedConstructor2() {
+            super();
+        }
+    }
+
     static class TestPackagePrivateConstructor {
         TestPackagePrivateConstructor() {
+            super();
+        }
+    }
+
+    static class TestPackagePrivateConstructor2 {
+        TestPackagePrivateConstructor2() {
             super();
         }
     }
@@ -410,13 +428,13 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     @Test
     public void testConstructorThrows() {
-        constructorTesting(TestConstructorThrowsIllegalArgumentException.class, TestConstructorThrowsIllegalArgumentException.class)
+        constructorTesting(TestConstructorThrowsIllegalArgumentException.class, TestConstructorThrowsIllegalArgumentException2.class)
                 .testConstructors();
     }
 
     @Test
     public void testConstructorThrows2() {
-        constructorTesting(TestConstructorThrowsIllegalStateException.class, TestConstructorThrowsIllegalStateException.class)
+        constructorTesting(TestConstructorThrowsIllegalStateException.class, TestConstructorThrowsIllegalStateException2.class)
                 .testConstructors();
     }
 
@@ -439,8 +457,18 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
         }
     }
 
+    static class TestConstructorThrowsIllegalArgumentException2 {
+        public TestConstructorThrowsIllegalArgumentException2() throws IllegalArgumentException {
+        }
+    }
+
     static class TestConstructorThrowsIllegalStateException {
         public TestConstructorThrowsIllegalStateException() throws IllegalStateException {
+        }
+    }
+
+    static class TestConstructorThrowsIllegalStateException2 {
+        public TestConstructorThrowsIllegalStateException2() throws IllegalStateException {
         }
     }
 
@@ -509,7 +537,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     @Test
     public void testMethodPublicPublic() {
-        methodTesting(TestPublicMethod.class, TestPublicMethod.class)
+        methodTesting(TestPublicMethod.class, TestPublicMethod2.class)
                 .testMethods();
     }
 
@@ -520,13 +548,13 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     @Test
     protected void testMethodProtectedProtected() {
-        methodTesting(TestProtectedMethod.class, TestProtectedMethod.class)
+        methodTesting(TestProtectedMethod.class, TestProtectedMethod2.class)
                 .testMethods();
     }
 
     @Test
     protected void testMethodPackagePrivatePackagePrivate() {
-        methodTesting(TestPackagePrivateMethod.class, TestPackagePrivateMethod.class)
+        methodTesting(TestPackagePrivateMethod.class, TestPackagePrivateMethod2.class)
                 .testMethods();
     }
 
@@ -574,12 +602,27 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
         }
     }
 
+    static class TestPublicMethod2 {
+        public void method123() {
+        }
+    }
+
     static class TestProtectedMethod {
         protected void method123() {
         }
     }
 
+    static class TestProtectedMethod2 {
+        protected void method123() {
+        }
+    }
+
     static class TestPackagePrivateMethod {
+        void method123() {
+        }
+    }
+
+    static class TestPackagePrivateMethod2 {
         void method123() {
         }
     }
@@ -644,13 +687,13 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     @Test
     public void testMethodThrows() {
-        methodTesting(TestMethodThrowsIllegalArgumentException.class, TestMethodThrowsIllegalArgumentException.class)
+        methodTesting(TestMethodThrowsIllegalArgumentException.class, TestMethodThrowsIllegalArgumentException2.class)
                 .testMethods();
     }
 
     @Test
     public void testMethodThrows2() {
-        methodTesting(TestMethodThrowsIllegalStateException.class, TestMethodThrowsIllegalStateException.class)
+        methodTesting(TestMethodThrowsIllegalStateException.class, TestMethodThrowsIllegalStateException2.class)
                 .testMethods();
     }
 
@@ -673,7 +716,17 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
         }
     }
 
+    static class TestMethodThrowsIllegalArgumentException2 {
+        public void method123() throws IllegalArgumentException {
+        }
+    }
+
     static class TestMethodThrowsIllegalStateException {
+        public void method123() throws IllegalStateException {
+        }
+    }
+
+    static class TestMethodThrowsIllegalStateException2 {
         public void method123() throws IllegalStateException {
         }
     }
@@ -842,7 +895,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     @Test
     public void testFieldPublicPublic() throws Exception {
-        fieldTesting(TestPublicField.class, TestPublicField.class)
+        fieldTesting(TestPublicField.class, TestPublicField2.class)
                 .testFields();
     }
 
@@ -853,13 +906,13 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     @Test
     protected void testFieldProtectedProtected() throws Exception {
-        fieldTesting(TestProtectedField.class, TestProtectedField.class)
+        fieldTesting(TestProtectedField.class, TestProtectedField2.class)
                 .testFields();
     }
 
     @Test
     protected void testFieldPackagePrivatePackagePrivate() throws Exception {
-        fieldTesting(TestPackagePrivateField.class, TestPackagePrivateField.class)
+        fieldTesting(TestPackagePrivateField.class, TestPackagePrivateField2.class)
                 .testFields();
     }
 
@@ -906,11 +959,23 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
         public final int field123 = 0;
     }
 
+    static class TestPublicField2 {
+        public final int field123 = 0;
+    }
+
     static class TestProtectedField {
         protected final int field123 = 0;
     }
 
+    static class TestProtectedField2 {
+        protected final int field123 = 0;
+    }
+
     static class TestPackagePrivateField {
+        final int field123 = 0;
+    }
+
+    static class TestPackagePrivateField2 {
         final int field123 = 0;
     }
 
