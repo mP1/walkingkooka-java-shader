@@ -32,7 +32,6 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTesting> {
@@ -129,7 +128,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
                                     final PackageName toPackage,
                                     final Class<?> c,
                                     final Class<?> target) {
-        assertEquals(target,
+        this.checkEquals(target,
                 ShadedClassTesting.typeMapper(fromPackage, toPackage).apply(c),
                 () -> "map " + c.getName() + " from " + fromPackage.value() + " to " + toPackage.value());
     }
@@ -485,7 +484,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
                     constructorTesting(from, to)
                             .testConstructors();
                 });
-        assertEquals(expectedMessage, thrown.getMessage());
+        this.checkEquals(expectedMessage, thrown.getMessage());
     }
 
     private static <T> ShadedClassTesting<T> constructorTesting(final Class<T> from,
@@ -844,7 +843,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
                     methodTesting(from, to)
                             .testMethods();
                 });
-        assertEquals(expectedMessage, thrown.getMessage());
+        this.checkEquals(expectedMessage, thrown.getMessage());
     }
 
     private static <T> ShadedClassTesting<T> methodTesting(final Class<T> from,
@@ -1412,7 +1411,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
                     fieldTesting(from, to)
                             .testFields();
                 });
-        assertEquals(expectedMessage, thrown.getMessage());
+        this.checkEquals(expectedMessage, thrown.getMessage());
     }
 
     private static <T> ShadedClassTesting<T> fieldTesting(final Class<T> from,
