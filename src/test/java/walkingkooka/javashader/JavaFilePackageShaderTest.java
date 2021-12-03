@@ -19,20 +19,19 @@ package walkingkooka.javashader;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.test.Testing;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public final class JavaFilePackageShaderTest {
+public final class JavaFilePackageShaderTest implements Testing {
 
     @Test
-    public void testImport()  {
+    public void testImport() {
         this.shadeAndCheck("import package1.package2.type3;");
     }
 
     @Test
-    public void testImportShadedIgnored()  {
+    public void testImportShadedIgnored() {
         this.shadeAndCheck("import package1.package2.type3;",
                 Maps.of("ignored", "package4.package5"));
     }
@@ -191,6 +190,6 @@ public final class JavaFilePackageShaderTest {
     private void shadeAndCheck(final String original,
                                final Map<String, String> shadings,
                                final String expected) {
-        assertEquals(expected, JavaFilePackageShader.shade(original, shadings), () -> " shadings: " + shadings);
+        this.checkEquals(expected, JavaFilePackageShader.shade(original, shadings), () -> " shadings: " + shadings);
     }
 }

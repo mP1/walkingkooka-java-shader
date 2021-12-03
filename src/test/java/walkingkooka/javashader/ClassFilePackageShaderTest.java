@@ -20,23 +20,23 @@ package walkingkooka.javashader;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.test.Testing;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ClassFilePackageShaderTest {
+public final class ClassFilePackageShaderTest implements Testing {
 
     @Test
     public void testUnchangedEmptyShadings() throws Exception {
         final TestClass testClass = this.shadeAndLoad(TestClass.class, Maps.empty());
 
-        assertEquals("field1", testClass.field, "field1");
-        assertEquals("method2", testClass.method(), "method2");
+        this.checkEquals("field1", testClass.field, "field1");
+        this.checkEquals("method2", testClass.method(), "method2");
         assertSame(testClass, testClass.returnsThis(), "returnsThis");
     }
 
@@ -44,8 +44,8 @@ public final class ClassFilePackageShaderTest {
     public void testUnchangedDifferentShadings() throws Exception {
         final TestClass testClass = this.shadeAndLoad(TestClass.class, Maps.of("different", "different2"));
 
-        assertEquals("field1", testClass.field, "field1");
-        assertEquals("method2", testClass.method(), "method2");
+        this.checkEquals("field1", testClass.field, "field1");
+        this.checkEquals("method2", testClass.method(), "method2");
         assertSame(testClass, testClass.returnsThis(), "returnsThis");
     }
 
@@ -57,10 +57,10 @@ public final class ClassFilePackageShaderTest {
         final Object loaded = this.shadeAndLoad(from, shaded, Maps.of(from, shaded));
         final Class<?> loadedType = loaded.getClass();
 
-        assertEquals(shaded, loaded.getClass().getName(), "shaded type name");
-        assertEquals("field1", loadedType.getField("field").get(loaded), "field1");
-        assertEquals("method2", loadedType.getMethod("method").invoke(loaded), "method2");
-        assertEquals(loaded, loadedType.getMethod("returnsThis").invoke(loaded), "returnsThis");
+        this.checkEquals(shaded, loaded.getClass().getName(), "shaded type name");
+        this.checkEquals("field1", loadedType.getField("field").get(loaded), "field1");
+        this.checkEquals("method2", loadedType.getMethod("method").invoke(loaded), "method2");
+        this.checkEquals(loaded, loadedType.getMethod("returnsThis").invoke(loaded), "returnsThis");
     }
 
     // helpers..........................................................................................................
