@@ -20,6 +20,7 @@ package walkingkooka.javashader;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.reflect.PackageName;
 import walkingkooka.test.Testing;
 
 import java.io.IOException;
@@ -80,7 +81,19 @@ public final class ClassFilePackageShaderTest implements Testing {
                                final Map<String, String> shadings) throws Exception {
         final byte[] file = this.loadClassFile(classFileTypeName);
         final ByteClassLoader classLoader = new ByteClassLoader();
-        classLoader.setClass(loadTypeName, ClassFilePackageShader.shadeClassFile(file, shadings));
+
+        final Map<PackageName, PackageName> shadings2 = Maps.ordered();
+        shadings.forEach(
+                (from, to) -> shadings2.put(
+                        PackageName.with(from),
+                        PackageName.with(to)
+                )
+        );
+
+        classLoader.setClass(
+                loadTypeName,
+                ClassFilePackageShader.shadeClassFile(file, shadings2)
+        );
         final Class<T> klass = Cast.to(classLoader.loadClass(loadTypeName));
         return klass.getDeclaredConstructor().newInstance();
     }
