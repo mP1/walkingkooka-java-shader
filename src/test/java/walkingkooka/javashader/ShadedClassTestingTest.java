@@ -41,23 +41,35 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     @Test
     public void testTypeMapperFromPackageNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ShadedClassTesting.typeMapper(null, PackageName.from(this.getClass().getPackage()));
-        });
+        assertThrows(
+                NullPointerException.class,
+                () -> ShadedClassTesting.typeMapper(
+                        null,
+                        PackageName.from(this.getClass().getPackage())
+                )
+        );
     }
 
     @Test
     public void testFromToPackageNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ShadedClassTesting.typeMapper(PackageName.from(this.getClass().getPackage()), null);
-        });
+        assertThrows(
+                NullPointerException.class,
+                () -> ShadedClassTesting.typeMapper(
+                        PackageName.from(this.getClass().getPackage()),
+                        null
+                )
+        );
     }
 
     @Test
     public void testTypeMapperFromPackageTopackageSameFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ShadedClassTesting.typeMapper(PackageName.from(this.getClass().getPackage()), PackageName.from(this.getClass().getPackage()));
-        });
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> ShadedClassTesting.typeMapper(
+                        PackageName.from(this.getClass().getPackage()),
+                        PackageName.from(this.getClass().getPackage())
+                )
+        );
     }
 
     @Test
@@ -129,9 +141,11 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
                                     final PackageName toPackage,
                                     final Class<?> c,
                                     final Class<?> target) {
-        this.checkEquals(target,
+        this.checkEquals(
+                target,
                 ShadedClassTesting.typeMapper(fromPackage, toPackage).apply(c),
-                () -> "map " + c.getName() + " from " + fromPackage.value() + " to " + toPackage.value());
+                () -> "map " + c.getName() + " from " + fromPackage.value() + " to " + toPackage.value()
+        );
     }
 
     // Class......................................................................................................
@@ -156,10 +170,13 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     @Test
     public void testClassDifferentVisibilityFails() {
-        assertThrows(AssertionError.class, () -> {
-            classTesting(TestPackagePrivateClass.class, TestPublicClass.class)
-                    .testClassVisibility();
-        });
+        assertThrows(
+                AssertionError.class,
+                () -> classTesting(
+                        TestPackagePrivateClass.class,
+                        TestPublicClass.class
+                ).testClassVisibility()
+        );
     }
 
     static class TestPackagePrivateClass {
@@ -176,34 +193,45 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     @Test
     public void testClassDifferentStaticFails() {
-        assertThrows(AssertionError.class, () -> {
-            classTesting(TestPublicStaticClass.class, TestPublicClass.class)
-                    .testClassStatic();
-        });
+        assertThrows(
+                AssertionError.class,
+                () -> classTesting(
+                        TestPublicStaticClass.class, TestPublicClass.class
+                ).testClassStatic()
+        );
     }
 
     @Test
     public void testClassDifferentStaticFails2() {
-        assertThrows(AssertionError.class, () -> {
-            classTesting(TestPublicClass.class, TestPublicStaticClass.class)
-                    .testClassStatic();
-        });
+        assertThrows(
+                AssertionError.class,
+                () -> classTesting(
+                        TestPublicClass.class,
+                        TestPublicStaticClass.class
+                ).testClassStatic()
+        );
     }
 
     @Test
     public void testClassDifferentFinalFails() {
-        assertThrows(AssertionError.class, () -> {
-            classTesting(TestPublicStaticClass.class, TestPublicFinalClass.class)
-                    .testClassFinal();
-        });
+        assertThrows(
+                AssertionError.class,
+                () -> classTesting(
+                        TestPublicStaticClass.class,
+                        TestPublicFinalClass.class
+                ).testClassFinal()
+        );
     }
 
     @Test
     public void testClassDifferentFinalFails2() {
-        assertThrows(AssertionError.class, () -> {
-            classTesting(TestPublicFinalClass.class, TestPublicStaticClass.class)
-                    .testClassFinal();
-        });
+        assertThrows(
+                AssertionError.class,
+                () -> classTesting(
+                        TestPublicFinalClass.class,
+                        TestPublicStaticClass.class
+                ).testClassFinal()
+        );
     }
 
     public final class TestPublicFinalClass {
@@ -211,18 +239,24 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     @Test
     public void testClassDifferentAbstractFails() {
-        assertThrows(AssertionError.class, () -> {
-            classTesting(TestPublicStaticClass.class, TestPublicAbstractClass.class)
-                    .testClassAbstract();
-        });
+        assertThrows(
+                AssertionError.class,
+                () -> classTesting(
+                        TestPublicStaticClass.class,
+                        TestPublicAbstractClass.class
+                ).testClassAbstract()
+        );
     }
 
     @Test
     public void testClassDifferentAbstractFails2() {
-        assertThrows(AssertionError.class, () -> {
-            classTesting(TestPublicAbstractClass.class, TestPublicStaticClass.class)
-                    .testClassAbstract();
-        });
+        assertThrows(
+                AssertionError.class,
+                () -> classTesting(
+                        TestPublicAbstractClass.class,
+                        TestPublicStaticClass.class
+                ).testClassAbstract()
+        );
     }
 
     public abstract class TestPublicAbstractClass {
@@ -482,11 +516,11 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     private <T> void constructorTestingFails(final Class<T> from,
                                              final Class<?> to,
                                              final String expectedMessage) {
-        final Throwable thrown = assertThrows(AssertionError.class,
-                () -> {
-                    constructorTesting(from, to)
-                            .testConstructors();
-                });
+        final Throwable thrown = assertThrows(
+                AssertionError.class,
+                () -> constructorTesting(from, to)
+                        .testConstructors()
+        );
         this.checkEquals(expectedMessage, thrown.getMessage());
     }
 
@@ -841,11 +875,11 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     private <T> void methodTestingFails(final Class<T> from,
                                         final Class<?> to,
                                         final String expectedMessage) {
-        final Throwable thrown = assertThrows(AssertionError.class,
-                () -> {
-                    methodTesting(from, to)
-                            .testMethods();
-                });
+        final Throwable thrown = assertThrows(
+                AssertionError.class,
+                () -> methodTesting(from, to)
+                        .testMethods()
+        );
         this.checkEquals(expectedMessage, thrown.getMessage());
     }
 
@@ -1409,11 +1443,11 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     private <T> void fieldTestingFails(final Class<T> from,
                                        final Class<?> to,
                                        final String expectedMessage) {
-        final Throwable thrown = assertThrows(AssertionError.class,
-                () -> {
-                    fieldTesting(from, to)
-                            .testFields();
-                });
+        final Throwable thrown = assertThrows(
+                AssertionError.class,
+                () -> fieldTesting(from, to)
+                        .testFields()
+        );
         this.checkEquals(expectedMessage, thrown.getMessage());
     }
 
