@@ -902,7 +902,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     final static class TestMethodFinalClassFinal {
-        @SuppressWarnings("unused")
+        @SuppressWarnings({"unused", "FinalMethodInFinalClass"})
         public final void method123() {
         }
     }
