@@ -89,22 +89,22 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
         final ShadedClassTestingHelper helper = ShadedClassTestingHelper.with(this.typeMapper());
 
         final List<String> messages = Lists.array();
-        final Predicate<Constructor> required = this.requiredConstructors();
+        final Predicate<Constructor<?>> required = this.requiredConstructors();
 
         final Class<T> type = this.type();
         final Class<?> target = helper.mapDifferentOrFail(type);
 
-        for (final Constructor constructor : type.getDeclaredConstructors()) {
+        for (final Constructor<?> constructor : type.getDeclaredConstructors()) {
             if (false == required.test(constructor)) {
                 continue;
             }
 
-            final Constructor targetConstructor;
+            final Constructor<?> targetConstructor;
             final Class<?>[] parameters = helper.mapArray(constructor.getParameterTypes());
             try {
                 targetConstructor = target.getDeclaredConstructor(parameters);
             } catch (final NoSuchMethodException cause) {
-                if(JavaVisibility.of(constructor).isOrLess(JavaVisibility.PACKAGE_PRIVATE)) {
+                if (JavaVisibility.of(constructor).isOrLess(JavaVisibility.PACKAGE_PRIVATE)) {
                     continue; // private/package private ctor doesnt exist on target ignore.
                 }
                 messages.add("Constructor missing from target: " + constructor.toGenericString());
@@ -135,7 +135,7 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
     /**
      * This {@link Predicate} is used to filter constructors that should be present on the shaded {@link Class}.
      */
-    Predicate<Constructor> requiredConstructors();
+    Predicate<Constructor<?>> requiredConstructors();
 
     // methods...........................................................................................................
 
