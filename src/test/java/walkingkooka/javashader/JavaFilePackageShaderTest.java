@@ -19,6 +19,7 @@ package walkingkooka.javashader;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.reflect.PackageName;
 import walkingkooka.test.Testing;
 
 import java.util.Map;
@@ -65,7 +66,7 @@ public final class JavaFilePackageShaderTest implements Testing {
     @Test
     public void testImportShaded3()  {
         this.shadeAndCheck("import package1.package2.type3;",
-                Maps.of("package1", "package4", "package1", "NEVER"),
+                Maps.of("package1", "package4", "package3", "NEVER"),
                 "import package4.package2.type3;");
     }
 
@@ -190,6 +191,21 @@ public final class JavaFilePackageShaderTest implements Testing {
     private void shadeAndCheck(final String original,
                                final Map<String, String> shadings,
                                final String expected) {
-        this.checkEquals(expected, JavaFilePackageShader.shade(original, shadings), () -> " shadings: " + shadings);
+        final Map<PackageName, PackageName> shadings2 = Maps.ordered();
+        shadings.forEach(
+                (from, to) -> shadings2.put(
+                        PackageName.with(from),
+                        PackageName.with(to)
+                )
+        );
+
+        this.checkEquals(
+                expected,
+                JavaFilePackageShader.shade(
+                        original,
+                        shadings2
+                ),
+                () -> " shadings: " + shadings
+        );
     }
 }

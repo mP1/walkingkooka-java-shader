@@ -28,6 +28,7 @@ import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SimpleType;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.reflect.PackageName;
 
 import java.nio.charset.Charset;
 import java.util.Comparator;
@@ -40,7 +41,7 @@ import java.util.stream.Collectors;
 /**
  * Shades a references for packages within a java source file
  */
-final class JavaFilePackageShader implements BiFunction<byte[], Map<String, String>, byte[]> {
+final class JavaFilePackageShader implements BiFunction<byte[], Map<PackageName, PackageName>, byte[]> {
 
     static JavaFilePackageShader with(final Charset charset) {
         return new JavaFilePackageShader(charset);
@@ -53,7 +54,7 @@ final class JavaFilePackageShader implements BiFunction<byte[], Map<String, Stri
 
     @Override
     public byte[] apply(final byte[] content,
-                        final Map<String, String> shadings) {
+                        final Map<PackageName, PackageName> shadings) {
         final Charset charset = this.charset;
         return shade(new String(content, charset), shadings).getBytes(charset);
     }
@@ -61,7 +62,7 @@ final class JavaFilePackageShader implements BiFunction<byte[], Map<String, Stri
     private final Charset charset;
 
     static String shade(final String content,
-                        final Map<String, String> shadings) {
+                        final Map<PackageName, PackageName> shadings) {
         ASTParser parser = ASTParser.newParser(AST.JLS3);
         parser.setSource(content.toCharArray());
         parser.setKind(ASTParser.K_COMPILATION_UNIT);
@@ -111,7 +112,7 @@ final class JavaFilePackageShader implements BiFunction<byte[], Map<String, Stri
 
     private static String collectText(final List<Name> names,
                                       final String file,
-                                      final Map<String, String> shadings) {
+                                      final Map<PackageName, PackageName> shadings) {
         final StringBuilder text = new StringBuilder();
         text.append(file);
 
@@ -121,13 +122,15 @@ final class JavaFilePackageShader implements BiFunction<byte[], Map<String, Stri
 
             final String typeName = text.substring(start, end);
 
-            for (final Entry<String, String> oldAndNew : shadings.entrySet()) {
-                final String old = oldAndNew.getKey();
-                final String neww = oldAndNew.getValue();
+            for (final Entry<PackageName, PackageName> oldAndNew : shadings.entrySet()) {
+                final String from = oldAndNew.getKey()
+                        .value();
+                final String to = oldAndNew.getValue()
+                        .value();
 
-                if (typeName.equals(old) || typeName.startsWith(old)) {
-                    text.delete(start, start + old.length());
-                    text.insert(start, neww);
+                if (typeName.equals(from) || typeName.startsWith(from)) {
+                    text.delete(start, start + from.length());
+                    text.insert(start, to);
                     break;
                 }
             }
@@ -136,6 +139,7 @@ final class JavaFilePackageShader implements BiFunction<byte[], Map<String, Stri
         return text.toString();
     }
 
+    @Override
     public String toString() {
         return this.charset.toString();
     }

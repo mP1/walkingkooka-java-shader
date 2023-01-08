@@ -21,6 +21,7 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.commons.ClassRemapper;
 import org.objectweb.asm.commons.Remapper;
+import walkingkooka.reflect.PackageName;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -29,7 +30,7 @@ import java.util.function.BiFunction;
 /**
  * Shades a references for packages within a java class file
  */
-final class ClassFilePackageShader implements BiFunction<byte[], Map<String, String>, byte[]> {
+final class ClassFilePackageShader implements BiFunction<byte[], Map<PackageName, PackageName>, byte[]> {
 
     final static ClassFilePackageShader INSTANCE = new ClassFilePackageShader();
 
@@ -39,13 +40,13 @@ final class ClassFilePackageShader implements BiFunction<byte[], Map<String, Str
 
     @Override
     public byte[] apply(final byte[] content,
-                        final Map<String, String> mappings) {
+                        final Map<PackageName, PackageName> mappings) {
         return shadeClassFile(content, mappings);
     }
 
     // @VisibleForTesting
     static byte[] shadeClassFile(final byte[] content,
-                                 final Map<String, String> mappings) {
+                                 final Map<PackageName, PackageName> mappings) {
         final ClassReader reader = new ClassReader(content);
         final ClassWriter writer = new ClassWriter(0);
         final ClassRemapper adapter = new ClassRemapper(writer, new Remapper() {
@@ -53,10 +54,13 @@ final class ClassFilePackageShader implements BiFunction<byte[], Map<String, Str
             public String map(final String typeName) {
                 String result = null;
 
-                for (final Entry<String, String> possible : mappings.entrySet()) {
-                    final String from = possible.getKey();
+                for (final Entry<PackageName, PackageName> possible : mappings.entrySet()) {
+                    final String from = possible.getKey().value();
                     if (typeName.startsWith(binaryTypeName(from))) {
-                        result = typeName.replace(binaryTypeName(from), binaryTypeName(possible.getValue()));
+                        result = typeName.replace(
+                                binaryTypeName(from),
+                                binaryTypeName(possible.getValue().value())
+                        );
                         break;
                     }
                 }
