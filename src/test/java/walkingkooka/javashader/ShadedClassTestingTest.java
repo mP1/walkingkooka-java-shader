@@ -18,6 +18,7 @@
 package walkingkooka.javashader;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting;
@@ -34,7 +35,7 @@ import java.util.function.UnaryOperator;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTesting> {
+public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTesting<?>> {
 
     // typeMapper......................................................................................................
 
@@ -249,7 +250,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     public void TestConstructorFiltered() {
         new FakeShadedClassTesting<TestPublicConstructor>() {
             @Override
-            public Predicate<Constructor> requiredConstructors() {
+            public Predicate<Constructor<?>> requiredConstructors() {
                 return (c) -> c.getParameterTypes().length == -1;
             }
 
@@ -320,10 +321,12 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     private void constructorVisibilityFails(final Class<?> from,
                                             final Class<?> to) throws Exception {
-        final Constructor expected = to.getDeclaredConstructor();
-        constructorTestingFails(from,
+        final Constructor<?> expected = to.getDeclaredConstructor();
+        constructorTestingFails(
+                from,
                 to,
-                "expected: <[]> but was: <[Constructor visibility " + JavaVisibility.of(expected) + " different: " + expected.toGenericString() + "]>");
+                "expected: <[]> but was: <[Constructor visibility " + JavaVisibility.of(expected) + " different: " + expected.toGenericString() + "]>"
+        );
     }
 
     static class TestPublicConstructor {
@@ -385,7 +388,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     public void TestConstructorParameterMapped() {
         new FakeShadedClassTesting<TestConstructorFrom>() {
             @Override
-            public Predicate<Constructor> requiredConstructors() {
+            public Predicate<Constructor<?>> requiredConstructors() {
                 return Predicates.always();
             }
 
@@ -491,7 +494,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
                                                                 final Class<?> to) {
         return new FakeShadedClassTesting<T>() {
             @Override
-            public Predicate<Constructor> requiredConstructors() {
+            public Predicate<Constructor<?>> requiredConstructors() {
                 return Predicates.always();
             }
 
@@ -1439,7 +1442,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     static abstract class FakeShadedClassTesting<T> implements ShadedClassTesting<T> {
 
         @Override
-        public Predicate<Constructor> requiredConstructors() {
+        public Predicate<Constructor<?>> requiredConstructors() {
             throw new UnsupportedOperationException();
         }
 
@@ -1478,8 +1481,8 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<ShadedClassTesting> type() {
-        return ShadedClassTesting.class;
+    public Class<ShadedClassTesting<?>> type() {
+        return Cast.to(ShadedClassTesting.class);
     }
 
     @Override
