@@ -182,9 +182,11 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     static class TestPackagePrivateClass {
     }
 
+    @SuppressWarnings("InnerClassMayBeStatic")
     public class TestPublicClass {
     }
 
+    @SuppressWarnings("InnerClassMayBeStatic")
     public class TestPublicClass2 {
     }
 
@@ -234,6 +236,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
         );
     }
 
+    @SuppressWarnings("InnerClassMayBeStatic")
     public final class TestPublicFinalClass {
     }
 
@@ -259,6 +262,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
         );
     }
 
+    @SuppressWarnings("InnerClassMayBeStatic")
     public abstract class TestPublicAbstractClass {
     }
 
