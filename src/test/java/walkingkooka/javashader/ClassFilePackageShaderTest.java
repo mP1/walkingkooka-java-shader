@@ -138,7 +138,7 @@ public final class ClassFilePackageShaderTest implements Testing {
 
     public static class TestClass {
 
-        public String field = "field1";
+        public final String field = "field1";
 
         public Object method() {
             return "method2";
