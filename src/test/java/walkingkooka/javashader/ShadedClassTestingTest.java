@@ -229,7 +229,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     private static <T> ShadedClassTesting<T> classTesting(final Class<T> from,
                                                           final Class<?> to) {
-        return new FakeShadedClassTesting<T>() {
+        return new FakeShadedClassTesting<>() {
 
             @Override
             public UnaryOperator<Class<?>> typeMapper() {
@@ -489,7 +489,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     private static <T> ShadedClassTesting<T> constructorTesting(final Class<T> from,
                                                                 final Class<?> to) {
-        return new FakeShadedClassTesting<T>() {
+        return new FakeShadedClassTesting<>() {
             @Override
             public Predicate<Constructor> requiredConstructors() {
                 return Predicates.always();
@@ -848,7 +848,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     private static <T> ShadedClassTesting<T> methodTesting(final Class<T> from,
                                                            final Class<?> to) {
-        return new FakeShadedClassTesting<T>() {
+        return new FakeShadedClassTesting<>() {
             @Override
             public Predicate<Method> requiredMethods() {
                 return Predicates.always();
@@ -1416,7 +1416,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
 
     private static <T> ShadedClassTesting<T> fieldTesting(final Class<T> from,
                                                           final Class<?> to) {
-        return new FakeShadedClassTesting<T>() {
+        return new FakeShadedClassTesting<>() {
             @Override
             public Predicate<Field> requiredFields() {
                 return Predicates.always();
