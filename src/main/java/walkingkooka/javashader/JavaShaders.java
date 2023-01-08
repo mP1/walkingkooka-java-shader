@@ -28,6 +28,7 @@ public final class JavaShaders implements PublicStaticHelper {
     /**
      * {@see ClassFilePackageShader}
      */
+    @SuppressWarnings("unused")
     public static BiFunction<byte[], Map<String, String>, byte[]> classFilePackageShader() {
         return ClassFilePackageShader.INSTANCE;
     }
@@ -35,6 +36,7 @@ public final class JavaShaders implements PublicStaticHelper {
     /**
      * {@see JavaFilePackageShader}
      */
+    @SuppressWarnings("unused")
     public static BiFunction<byte[], Map<String, String>, byte[]> javaFilePackageShader(final Charset charset) {
         return JavaFilePackageShader.with(charset);
     }

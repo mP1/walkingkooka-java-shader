@@ -413,6 +413,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestConstructorString2 {
+        @SuppressWarnings("unused")
         public TestConstructorString2(final String string) {
             super();
         }
@@ -439,24 +440,28 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestConstructorFrom {
+        @SuppressWarnings("unused")
         public TestConstructorFrom(final TestFrom ignore) {
             super();
         }
     }
 
     static class TestConstructorTo {
+        @SuppressWarnings("unused")
         public TestConstructorTo(final TestTo ignore) {
             super();
         }
     }
 
     static class TestConstructorString {
+        @SuppressWarnings("unused")
         public TestConstructorString(final String string) {
             super();
         }
     }
 
     static class TestConstructorInt {
+        @SuppressWarnings("unused")
         public TestConstructorInt(final int ignored) {
             super();
         }
@@ -567,6 +572,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestPublicMethodFiltered extends TestPublicMethod {
+        @SuppressWarnings("unused")
         void ignore() {
         }
     }
@@ -634,31 +640,37 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestPublicMethod {
+        @SuppressWarnings("unused")
         public void method123() {
         }
     }
 
     static class TestPublicMethod2 {
+        @SuppressWarnings("unused")
         public void method123() {
         }
     }
 
     static class TestProtectedMethod {
+        @SuppressWarnings("unused")
         protected void method123() {
         }
     }
 
     static class TestProtectedMethod2 {
+        @SuppressWarnings("unused")
         protected void method123() {
         }
     }
 
     static class TestPackagePrivateMethod {
+        @SuppressWarnings("unused")
         void method123() {
         }
     }
 
     static class TestPackagePrivateMethod2 {
+        @SuppressWarnings("unused")
         void method123() {
         }
     }
@@ -677,6 +689,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestMethodString2 {
+        @SuppressWarnings("unused")
         public void method123(final String string) {
         }
     }
@@ -702,21 +715,25 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestMethodParameterFrom {
+        @SuppressWarnings("unused")
         public void method123(final TestFrom ignore) {
         }
     }
 
     static class TestMethodParameterTo {
+        @SuppressWarnings("unused")
         public void method123(final TestTo ignore) {
         }
     }
 
     static class TestMethodParameterString {
+        @SuppressWarnings("unused")
         public void method123(final String string) {
         }
     }
 
     static class TestMethodParameterInt {
+        @SuppressWarnings("unused")
         public void method123(final int ignored) {
         }
     }
@@ -748,26 +765,31 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestMethodThrowsIllegalArgumentException {
+        @SuppressWarnings("unused")
         public void method123() throws IllegalArgumentException {
         }
     }
 
     static class TestMethodThrowsIllegalArgumentException2 {
+        @SuppressWarnings("unused")
         public void method123() throws IllegalArgumentException {
         }
     }
 
     static class TestMethodThrowsIllegalStateException {
+        @SuppressWarnings("unused")
         public void method123() throws IllegalStateException {
         }
     }
 
     static class TestMethodThrowsIllegalStateException2 {
+        @SuppressWarnings("unused")
         public void method123() throws IllegalStateException {
         }
     }
 
     static class TestMethodThrowsIllegalArgumentExceptionIllegalStateException {
+        @SuppressWarnings("unused")
         public void method123() throws IllegalArgumentException, IllegalStateException {
         }
     }
@@ -780,12 +802,14 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestMethodReturnString {
+        @SuppressWarnings("unused")
         public String method123() {
             return null;
         }
     }
 
     static class TestMethodReturnInt {
+        @SuppressWarnings("unused")
         public int method123() {
             return 0;
         }
@@ -806,11 +830,13 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestMethodStatic {
+        @SuppressWarnings("unused")
         public static void method123() {
         }
     }
 
     static class TestMethodNotStatic {
+        @SuppressWarnings("unused")
         public void method123() {
         }
     }
@@ -830,10 +856,12 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static abstract class TestMethodAbstract {
+        @SuppressWarnings("unused")
         public abstract void method123();
     }
 
     static abstract class TestMethodNotAbstract {
+        @SuppressWarnings("unused")
         public void method123() {
         }
     }
@@ -853,11 +881,13 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestMethodFinal {
+        @SuppressWarnings("unused")
         public final void method123() {
         }
     }
 
     static abstract class TestMethodNotFinal {
+        @SuppressWarnings("unused")
         public void method123() {
         }
     }
@@ -868,6 +898,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     final static class TestMethodFinalClassFinal {
+        @SuppressWarnings("unused")
         public final void method123() {
         }
     }
@@ -926,6 +957,7 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestPublicFieldFiltered extends TestPublicField {
+        @SuppressWarnings("unused")
         public int ignore = 0;
     }
 
@@ -992,26 +1024,32 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestPublicField {
+        @SuppressWarnings("unused")
         public final int field123 = 0;
     }
 
     static class TestPublicField2 {
+        @SuppressWarnings("unused")
         public final int field123 = 0;
     }
 
     static class TestProtectedField {
+        @SuppressWarnings("unused")
         protected final int field123 = 0;
     }
 
     static class TestProtectedField2 {
+        @SuppressWarnings("unused")
         protected final int field123 = 0;
     }
 
     static class TestPackagePrivateField {
+        @SuppressWarnings("unused")
         final int field123 = 0;
     }
 
     static class TestPackagePrivateField2 {
+        @SuppressWarnings("unused")
         final int field123 = 0;
     }
 
@@ -1039,14 +1077,17 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestFieldString {
+        @SuppressWarnings("unused")
         public String field123 = null;
     }
 
     static class TestFieldInt {
+        @SuppressWarnings("unused")
         public int field123 = 0;
     }
 
     static class TestFieldString2 {
+        @SuppressWarnings("unused")
         public String field123 = null;
     }
 
@@ -1071,10 +1112,12 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestFieldParameterFrom {
+        @SuppressWarnings("unused")
         TestFrom field123;
     }
 
     static class TestFieldParameterTo {
+        @SuppressWarnings("unused")
         TestTo field123;
     }
 
@@ -1093,10 +1136,12 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestFieldStatic {
+        @SuppressWarnings("unused")
         public static int field123;
     }
 
     static class TestFieldNotStatic {
+        @SuppressWarnings("unused")
         public int field123;
     }
 
@@ -1115,10 +1160,12 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestFieldFinal {
+        @SuppressWarnings("unused")
         public final int field123 = 0;
     }
 
     static abstract class TestFieldNotFinal {
+        @SuppressWarnings("unused")
         public int field123;
     }
 
@@ -1147,10 +1194,12 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestFieldBooleanConstant {
+        @SuppressWarnings("unused")
         public final static boolean field123 = false;
     }
 
     static class TestFieldBooleanConstant2 {
+        @SuppressWarnings("unused")
         public final static boolean field123 = true;
     }
 
@@ -1179,10 +1228,12 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestFieldByteConstant {
+        @SuppressWarnings("unused")
         public final static byte field123 = 1;
     }
 
     static class TestFieldByteConstant2 {
+        @SuppressWarnings("unused")
         public final static byte field123 = 23;
     }
 
@@ -1211,10 +1262,12 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestFieldCharConstant {
+        @SuppressWarnings("unused")
         public final static char field123 = 'A';
     }
 
     static class TestFieldCharConstant2 {
+        @SuppressWarnings("unused")
         public final static char field123 = 'Z';
     }
 
@@ -1267,10 +1320,12 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestFieldDoubleConstant {
+        @SuppressWarnings("unused")
         public final static double field123 = 1.5;
     }
 
     static class TestFieldDoubleConstant2 {
+        @SuppressWarnings("unused")
         public final static double field123 = 23.5;
     }
 
@@ -1299,19 +1354,23 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestFieldFloatConstant {
+        @SuppressWarnings("unused")
         public final static float field123 = 1.5f;
     }
 
     static class TestFieldFloatConstant2 {
+        @SuppressWarnings("unused")
         public final static float field123 = 23.5f;
     }
 
 
     static class TestFieldIntConstant {
+        @SuppressWarnings("unused")
         public final static int field123 = 1;
     }
 
     static class TestFieldIntConstant2 {
+        @SuppressWarnings("unused")
         public final static int field123 = 23;
     }
 
@@ -1340,10 +1399,12 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestFieldLongConstant {
+        @SuppressWarnings("unused")
         public final static long field123 = 1;
     }
 
     static class TestFieldLongConstant2 {
+        @SuppressWarnings("unused")
         public final static long field123 = 23;
     }
 
@@ -1372,10 +1433,12 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestFieldShortConstant {
+        @SuppressWarnings("unused")
         public final static short field123 = 1;
     }
 
     static class TestFieldShortConstant2 {
+        @SuppressWarnings("unused")
         public final static short field123 = 23;
     }
 
@@ -1404,10 +1467,12 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestFieldStringConstant {
+        @SuppressWarnings("unused")
         public final static String field123 = "abc";
     }
 
     static class TestFieldStringConstant2 {
+        @SuppressWarnings("unused")
         public final static String field123 = "different";
     }
 
@@ -1433,10 +1498,12 @@ public final class ShadedClassTestingTest implements ClassTesting<ShadedClassTes
     }
 
     static class TestFieldObjectConstant {
+        @SuppressWarnings("unused")
         public final static Object field123 = "abc";
     }
 
     static class TestFieldObjectConstant2 {
+        @SuppressWarnings("unused")
         public final static Object field123 = "different";
     }
 
