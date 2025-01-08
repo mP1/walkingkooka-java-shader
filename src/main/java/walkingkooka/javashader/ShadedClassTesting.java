@@ -47,39 +47,39 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
     default void testClassStatic() {
         final Class<T> type = this.type();
         final Class<?> targetType = ShadedClassTestingHelper.with(this.typeMapper())
-                .mapDifferentOrFail(type);
+            .mapDifferentOrFail(type);
 
         final boolean targetTypeStatic = ClassAttributes.STATIC.is(targetType);
         final boolean typeStatic = ClassAttributes.STATIC.is(type);
         this.checkEquals(targetTypeStatic,
-                typeStatic,
-                () -> (targetTypeStatic ? "Static" : "Instance") + " expected " + (typeStatic ? "static" : "instance") + ": " + type.toGenericString());
+            typeStatic,
+            () -> (targetTypeStatic ? "Static" : "Instance") + " expected " + (typeStatic ? "static" : "instance") + ": " + type.toGenericString());
     }
 
     @Test
     default void testClassFinal() {
         final Class<T> type = this.type();
         final Class<?> targetType = ShadedClassTestingHelper.with(this.typeMapper())
-                .mapDifferentOrFail(type);
+            .mapDifferentOrFail(type);
 
         final boolean targetTypeFinal = ClassAttributes.FINAL.is(targetType);
         final boolean typeFinal = ClassAttributes.FINAL.is(type);
         this.checkEquals(targetTypeFinal,
-                typeFinal,
-                () -> (targetTypeFinal ? "Final" : "Not final") + " expected " + (typeFinal ? "final" : "not final") + ": " + type.toGenericString());
+            typeFinal,
+            () -> (targetTypeFinal ? "Final" : "Not final") + " expected " + (typeFinal ? "final" : "not final") + ": " + type.toGenericString());
     }
 
     @Test
     default void testClassAbstract() {
         final Class<T> type = this.type();
         final Class<?> targetType = ShadedClassTestingHelper.with(this.typeMapper())
-                .mapDifferentOrFail(type);
+            .mapDifferentOrFail(type);
 
         final boolean targetTypeAbstract = ClassAttributes.ABSTRACT.is(targetType);
         final boolean typeAbstract = ClassAttributes.ABSTRACT.is(type);
         this.checkEquals(targetTypeAbstract,
-                typeAbstract,
-                () -> (targetTypeAbstract ? "Abstract" : "Not abstract") + " expected " + (typeAbstract ? "abstract" : "not abstract") + ": " + type.toGenericString());
+            typeAbstract,
+            () -> (targetTypeAbstract ? "Abstract" : "Not abstract") + " expected " + (typeAbstract ? "abstract" : "not abstract") + ": " + type.toGenericString());
     }
 
     // constructors......................................................................................................
@@ -121,7 +121,7 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
 
             {
                 final List<Class<?>> extraThrows = helper.checkDeclaredThrows(constructor.getExceptionTypes(),
-                        targetConstructor.getExceptionTypes());
+                    targetConstructor.getExceptionTypes());
                 if (false == extraThrows.isEmpty()) {
                     messages.add("Constructor includes unexpected throws: " + targetConstructor.toGenericString());
                     continue;
@@ -162,7 +162,7 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
             try {
                 targetMethod = target.getDeclaredMethod(method.getName(), parameters);
             } catch (final NoSuchMethodException cause) {
-                if(JavaVisibility.of(method).isOrLess(JavaVisibility.PACKAGE_PRIVATE)) {
+                if (JavaVisibility.of(method).isOrLess(JavaVisibility.PACKAGE_PRIVATE)) {
                     continue; // private/package private method doesnt exist on target ignore.
                 }
                 messages.add("Method missing from target: " + method.toGenericString());
@@ -187,7 +187,7 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
 
             {
                 final List<Class<?>> extraThrows = helper.checkDeclaredThrows(method.getExceptionTypes(),
-                        targetMethod.getExceptionTypes());
+                    targetMethod.getExceptionTypes());
                 if (false == extraThrows.isEmpty()) {
                     messages.add("Method includes unexpected throws(" + extraThrows.stream().map(Class::getName).collect(Collectors.joining(", ")) + "): " + method.toGenericString());
                 }
@@ -208,7 +208,7 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
                 }
             }
 
-            if(false == typeFinal) {
+            if (false == typeFinal) {
                 {
                     final boolean targetMethodFinal = MethodAttributes.FINAL.is(targetMethod);
                     final boolean methodFinal = MethodAttributes.FINAL.is(method);
@@ -248,7 +248,7 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
             try {
                 targetField = target.getDeclaredField(field.getName());
             } catch (final NoSuchFieldException cause) {
-                if(JavaVisibility.of(field).isOrLess(JavaVisibility.PACKAGE_PRIVATE)) {
+                if (JavaVisibility.of(field).isOrLess(JavaVisibility.PACKAGE_PRIVATE)) {
                     continue; // private/package private field doesnt exist on target ignore.
                 }
 
@@ -279,9 +279,9 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
             }
 
             if ((targetFieldType.isPrimitive() || targetFieldType == String.class) &&
-                    (fieldType.isPrimitive() || fieldType == String.class) &&
-                    fieldStatic &&
-                    targetFieldFinal) {
+                (fieldType.isPrimitive() || fieldType == String.class) &&
+                fieldStatic &&
+                targetFieldFinal) {
                 field.setAccessible(true);
                 targetField.setAccessible(true);
 
@@ -323,7 +323,7 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
 
         return (c) -> {
             // primitives are ignored and not shadable
-            if(c.isPrimitive()) {
+            if (c.isPrimitive()) {
                 return c;
             }
 
@@ -332,14 +332,14 @@ public interface ShadedClassTesting<T> extends ClassTesting<T> {
 
             final StringBuilder prefix = new StringBuilder();
             Class<?> component = c.getComponentType();
-            while(null != component) {
+            while (null != component) {
                 prefix.append('[');
-                if(component.isPrimitive()) {
+                if (component.isPrimitive()) {
                     return c;
                 }
                 component = component.getComponentType();
             }
-            if(null != c.getComponentType()) {
+            if (null != c.getComponentType()) {
                 prefix.append("L");
             }
 

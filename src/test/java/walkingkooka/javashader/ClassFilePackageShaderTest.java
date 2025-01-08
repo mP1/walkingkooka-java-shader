@@ -84,15 +84,15 @@ public final class ClassFilePackageShaderTest implements Testing {
 
         final Map<PackageName, PackageName> shadings2 = Maps.ordered();
         shadings.forEach(
-                (from, to) -> shadings2.put(
-                        PackageName.with(from),
-                        PackageName.with(to)
-                )
+            (from, to) -> shadings2.put(
+                PackageName.with(from),
+                PackageName.with(to)
+            )
         );
 
         classLoader.setClass(
-                loadTypeName,
-                ClassFilePackageShader.shadeClassFile(file, shadings2)
+            loadTypeName,
+            ClassFilePackageShader.shadeClassFile(file, shadings2)
         );
         final Class<T> klass = Cast.to(classLoader.loadClass(loadTypeName));
         return klass.getDeclaredConstructor().newInstance();

@@ -124,9 +124,9 @@ final class JavaFilePackageShader implements BiFunction<byte[], Map<PackageName,
 
             for (final Entry<PackageName, PackageName> oldAndNew : shadings.entrySet()) {
                 final String from = oldAndNew.getKey()
-                        .value();
+                    .value();
                 final String to = oldAndNew.getValue()
-                        .value();
+                    .value();
 
                 if (typeName.equals(from) || typeName.startsWith(from)) {
                     text.delete(start, start + from.length());
