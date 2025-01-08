@@ -40,7 +40,7 @@ final class ShadedClassTestingHelper {
 
     Class<?> mapDifferentOrFail(final Class<?> type) {
         final Class<?> different = this.map(type);
-        if(type.equals(different)) {
+        if (type.equals(different)) {
             throw new IllegalArgumentException("Type " + type.getName() + " not shaded");
         }
         return different;
@@ -51,8 +51,8 @@ final class ShadedClassTestingHelper {
      */
     Class<?>[] mapArray(final Class<?>... types) {
         return Arrays.stream(types)
-                .map(this::map)
-                .toArray(Class[]::new);
+            .map(this::map)
+            .toArray(Class[]::new);
     }
 
     private final UnaryOperator<Class<?>> typeMapper;

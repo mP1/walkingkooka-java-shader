@@ -34,157 +34,157 @@ public final class JavaFilePackageShaderTest implements Testing {
     @Test
     public void testImportShadedIgnored() {
         this.shadeAndCheck("import package1.package2.type3;",
-                Maps.of("ignored", "package4.package5"));
+            Maps.of("ignored", "package4.package5"));
     }
 
     @Test
-    public void testImportShadedIgnored2()  {
+    public void testImportShadedIgnored2() {
         this.shadeAndCheck("import package1.package2.type3;",
-                Maps.of("package1.package2.type4", "NEVER"));
+            Maps.of("package1.package2.type4", "NEVER"));
     }
 
     @Test
-    public void testImportShadedIgnored3()  {
+    public void testImportShadedIgnored3() {
         this.shadeAndCheck("import package1.package2.type3;",
-                Maps.of("package2", "NEVER"));
+            Maps.of("package2", "NEVER"));
     }
 
     @Test
-    public void testImportShaded()  {
+    public void testImportShaded() {
         this.shadeAndCheck("import package1.package2.type3;",
-                Maps.of("package1.package2", "package4.package5"),
-                "import package4.package5.type3;");
+            Maps.of("package1.package2", "package4.package5"),
+            "import package4.package5.type3;");
     }
 
     @Test
-    public void testImportShaded2()  {
+    public void testImportShaded2() {
         this.shadeAndCheck("import package1.package2.type3;",
-                Maps.of("package1", "package4"),
-                "import package4.package2.type3;");
+            Maps.of("package1", "package4"),
+            "import package4.package2.type3;");
     }
 
     @Test
-    public void testImportShaded3()  {
+    public void testImportShaded3() {
         this.shadeAndCheck("import package1.package2.type3;",
-                Maps.of("package1", "package4", "package3", "NEVER"),
-                "import package4.package2.type3;");
+            Maps.of("package1", "package4", "package3", "NEVER"),
+            "import package4.package2.type3;");
     }
 
     @Test
-    public void testImportWildcard()  {
+    public void testImportWildcard() {
         this.shadeAndCheck("import package.package2.*;");
     }
 
     @Test
-    public void testImportWildcardShadingIgnored()  {
+    public void testImportWildcardShadingIgnored() {
         this.shadeAndCheck("import package.package2.*;", Maps.of("ignored", "NEVER"));
     }
 
     @Test
-    public void testImportWildcardShaded()  {
+    public void testImportWildcardShaded() {
         this.shadeAndCheck("import package1.package2.*;",
-                Maps.of("package1.package2", "package4.package5"),
-                "import package4.package5.*;");
+            Maps.of("package1.package2", "package4.package5"),
+            "import package4.package5.*;");
     }
 
     @Test
-    public void testImportWildcardShaded2()  {
+    public void testImportWildcardShaded2() {
         this.shadeAndCheck("import package1.package2.*;",
-                Maps.of("package1", "package4"),
-                "import package4.package2.*;");
+            Maps.of("package1", "package4"),
+            "import package4.package2.*;");
     }
 
     @Test
-    public void testPackageClassUnchangedEmptyShadings()  {
+    public void testPackageClassUnchangedEmptyShadings() {
         this.shadeAndCheck("package package1; import package2.type3; class Type4{};");
     }
 
     @Test
-    public void testPackageClassUnchangedEmptyShadings2()  {
+    public void testPackageClassUnchangedEmptyShadings2() {
         this.shadeAndCheck("package package1; import package2.*; class Type4{};");
     }
 
     @Test
-    public void testPackageClassWithMethodUnchangedEmptyShadings()  {
+    public void testPackageClassWithMethodUnchangedEmptyShadings() {
         this.shadeAndCheck("package package1;\nimport package2.type3;\nclass Type4{\npublic static void main(final String[] args){}\n};");
     }
 
     @Test
-    public void testPackageClassPackageShaded()  {
+    public void testPackageClassPackageShaded() {
         this.shadeAndCheck("package package1;\nimport package2.type3;\nclass Type4{\npublic static void main(final String[] args){}\n};",
-                Maps.of("package1", "package99"),
-                "package package99;\nimport package2.type3;\nclass Type4{\npublic static void main(final String[] args){}\n};");
+            Maps.of("package1", "package99"),
+            "package package99;\nimport package2.type3;\nclass Type4{\npublic static void main(final String[] args){}\n};");
     }
 
     @Test
-    public void testPackageClassPackageShaded2()  {
+    public void testPackageClassPackageShaded2() {
         this.shadeAndCheck("package package1.package2;\nimport package2.type3;\nclass Type4{\npublic static void main(final String[] args){}\n};",
-                Maps.of("package1.package2", "package98.package99"),
-                "package package98.package99;\nimport package2.type3;\nclass Type4{\npublic static void main(final String[] args){}\n};");
+            Maps.of("package1.package2", "package98.package99"),
+            "package package98.package99;\nimport package2.type3;\nclass Type4{\npublic static void main(final String[] args){}\n};");
     }
 
     @Test
-    public void testPackageClassPackageShaded3()  {
+    public void testPackageClassPackageShaded3() {
         this.shadeAndCheck("package package1.package2;\nimport package2.type3;\nclass Type4{\npublic static void main(final String[] args){}\n};",
-                Maps.of("package1", "package99"),
-                "package package99.package2;\nimport package2.type3;\nclass Type4{\npublic static void main(final String[] args){}\n};");
+            Maps.of("package1", "package99"),
+            "package package99.package2;\nimport package2.type3;\nclass Type4{\npublic static void main(final String[] args){}\n};");
     }
 
     @Test
-    public void testPackageClassPackageShaded4()  {
+    public void testPackageClassPackageShaded4() {
         this.shadeAndCheck("package package1.package2;\nimport package3.type2;\nclass Type4{\npublic static void main(final String[] args){}\n};",
-                Maps.of("package1", "package99"),
-                "package package99.package2;\nimport package3.type2;\nclass Type4{\npublic static void main(final String[] args){}\n};");
+            Maps.of("package1", "package99"),
+            "package package99.package2;\nimport package3.type2;\nclass Type4{\npublic static void main(final String[] args){}\n};");
     }
 
     @Test
-    public void testPackageClassIgnored()  {
+    public void testPackageClassIgnored() {
         this.shadeAndCheck("package package1;\nimport package2.type3;\nclass Type4{\npublic static Type6 x(){return null}\n};",
-                Maps.of("package5", "package99"),
-                "package package1;\nimport package2.type3;\nclass Type4{\npublic static Type6 x(){return null}\n};");
+            Maps.of("package5", "package99"),
+            "package package1;\nimport package2.type3;\nclass Type4{\npublic static Type6 x(){return null}\n};");
     }
 
     @Test
-    public void testPackageClassIgnored2()  {
+    public void testPackageClassIgnored2() {
         this.shadeAndCheck("package package1;\nimport package2.type3;\nclass Type4{\npublic static Type6 x(){return null}\n};",
-                Maps.of("Type4", "Type99"),
-                "package package1;\nimport package2.type3;\nclass Type99{\npublic static Type6 x(){return null}\n};");
+            Maps.of("Type4", "Type99"),
+            "package package1;\nimport package2.type3;\nclass Type99{\npublic static Type6 x(){return null}\n};");
     }
 
     @Test
-    public void testPackageClassShaded()  {
+    public void testPackageClassShaded() {
         this.shadeAndCheck("package package1;\nimport package2.type3;\nclass Type4{\npublic static package5.Type6 x(){return null}\n};",
-                Maps.of("package5", "package99"),
-                "package package1;\nimport package2.type3;\nclass Type4{\npublic static package99.Type6 x(){return null}\n};");
+            Maps.of("package5", "package99"),
+            "package package1;\nimport package2.type3;\nclass Type4{\npublic static package99.Type6 x(){return null}\n};");
     }
 
     @Test
-    public void testPackageManyShaded()  {
+    public void testPackageManyShaded() {
         this.shadeAndCheck("package package1;\nimport package2.type3;\nclass Type4{\npublic static package5.Type6 x(){return null}\n};",
-                Maps.of("package1", "package91", "package5", "package95"),
-                "package package91;\nimport package2.type3;\nclass Type4{\npublic static package95.Type6 x(){return null}\n};");
+            Maps.of("package1", "package91", "package5", "package95"),
+            "package package91;\nimport package2.type3;\nclass Type4{\npublic static package95.Type6 x(){return null}\n};");
     }
 
     @Test
-    public void testPackageManyShaded2()  {
+    public void testPackageManyShaded2() {
         this.shadeAndCheck("package package1;\nimport package2.type3;\nclass Type4{\npublic static package1.Type5 x(){return null}\n};",
-                Maps.of("package1", "package99", "package5", "package95"),
-                "package package99;\nimport package2.type3;\nclass Type4{\npublic static package99.Type5 x(){return null}\n};");
+            Maps.of("package1", "package99", "package5", "package95"),
+            "package package99;\nimport package2.type3;\nclass Type4{\npublic static package99.Type5 x(){return null}\n};");
     }
 
     @Test
-    public void testPackageManyShaded3()  {
+    public void testPackageManyShaded3() {
         this.shadeAndCheck("package package1;\nimport package2.type3;\nclass Type4{\npublic static package1.Type5 x(){return null}\n};",
-                Maps.of("package99", "NEVER", "package1", "package91", "package2", "package92"),
-                "package package91;\nimport package92.type3;\nclass Type4{\npublic static package91.Type5 x(){return null}\n};");
+            Maps.of("package99", "NEVER", "package1", "package91", "package2", "package92"),
+            "package package91;\nimport package92.type3;\nclass Type4{\npublic static package91.Type5 x(){return null}\n};");
     }
 
-    private void shadeAndCheck(final String original)  {
+    private void shadeAndCheck(final String original) {
         this.shadeAndCheck(original, Maps.empty());
     }
 
     private void shadeAndCheck(final String original,
-                               final Map<String, String> shadings)  {
+                               final Map<String, String> shadings) {
         shadeAndCheck(original, shadings, original);
     }
 
@@ -193,19 +193,19 @@ public final class JavaFilePackageShaderTest implements Testing {
                                final String expected) {
         final Map<PackageName, PackageName> shadings2 = Maps.ordered();
         shadings.forEach(
-                (from, to) -> shadings2.put(
-                        PackageName.with(from),
-                        PackageName.with(to)
-                )
+            (from, to) -> shadings2.put(
+                PackageName.with(from),
+                PackageName.with(to)
+            )
         );
 
         this.checkEquals(
-                expected,
-                JavaFilePackageShader.shade(
-                        original,
-                        shadings2
-                ),
-                () -> " shadings: " + shadings
+            expected,
+            JavaFilePackageShader.shade(
+                original,
+                shadings2
+            ),
+            () -> " shadings: " + shadings
         );
     }
 }

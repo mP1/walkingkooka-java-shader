@@ -58,16 +58,16 @@ final class ClassFilePackageShader implements BiFunction<byte[], Map<PackageName
                     final String from = possible.getKey().value();
                     if (typeName.startsWith(binaryTypeName(from))) {
                         result = typeName.replace(
-                                binaryTypeName(from),
-                                binaryTypeName(possible.getValue().value())
+                            binaryTypeName(from),
+                            binaryTypeName(possible.getValue().value())
                         );
                         break;
                     }
                 }
 
                 return null != result ?
-                        result :
-                        super.map(typeName);
+                    result :
+                    super.map(typeName);
             }
         });
         reader.accept(adapter, ClassReader.EXPAND_FRAMES);
