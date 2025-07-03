@@ -91,9 +91,9 @@
         </dependency>
 
         <dependency>
-            <groupId>walkingkooka-j2cl</groupId>
+            <groupId>com.vertispan.j2cl.external</groupId>
             <artifactId>org.eclipse.jdt.core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>v20230718-1</version>
         </dependency>
 
         <dependency>
