@@ -17,7 +17,6 @@
 
 package walkingkooka.javashader;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -27,11 +26,6 @@ public final class JavaShadersTest implements PublicStaticHelperTesting<JavaShad
     @Override
     public Class<JavaShaders> type() {
         return JavaShaders.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override
